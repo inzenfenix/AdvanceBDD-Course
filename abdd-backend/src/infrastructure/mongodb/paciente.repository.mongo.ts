@@ -2,26 +2,27 @@ import { IPacienteRepository } from 'src/domain/repositories/paciente.repository
 import { Paciente } from 'src/domain/entities/paciente.entity';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { PacienteMongo } from './schemas/paciente.schema';
 
 export class MongoPacienteRepository implements IPacienteRepository {
-  constructor(@InjectModel('Paciente') private pacienteModel: Model<any>) {}
+  constructor(@InjectModel('Paciente') private pacienteModel: Model<PacienteMongo>) {}
 
   async CreatePaciente(paciente: Paciente): Promise<void> {
     await new this.pacienteModel({
-      _id: paciente.id,
-      nombre: paciente.nombre,
-      tutor: paciente.tutor,
-      raza: paciente.raza,
-      edad: paciente.edad,
-      especie: paciente.especie,
-      genero: paciente.genero,
+      _id: paciente.getId(),
+      nombre: paciente.getNombre(),
+      tutor: paciente.getTutor(),
+      raza: paciente.getRaza(),
+      edad: paciente.getEdad(),
+      especie: paciente.getEspecie(),
+      genero: paciente.getGenero(),
     }).save();
   }
   async FindById(id: string): Promise<Paciente | null> {
     const doc = await this.pacienteModel.findById(id).exec();
-    return doc
+  return doc
       ? new Paciente(
-          doc._id,
+          doc.id,
           doc.nombre,
           doc.tutor,
           doc.raza,
@@ -32,13 +33,13 @@ export class MongoPacienteRepository implements IPacienteRepository {
       : null;
   }
   async UpdatePaciente(paciente: Paciente): Promise<void> {
-    await this.pacienteModel.findByIdAndUpdate(paciente.id, {
-      nombre: paciente.nombre,
-      tutor: paciente.tutor,
-      raza: paciente.raza,
-      edad: paciente.edad,
-      especie: paciente.especie,
-      genero: paciente.genero,
+    await this.pacienteModel.findByIdAndUpdate(paciente.getId(), {
+      nombre: paciente.getNombre(),
+      tutor: paciente.getTutor(),
+      raza: paciente.getRaza(),
+      edad: paciente.getEdad(),
+      especie: paciente.getEspecie(),
+      genero: paciente.getGenero(),
     });
   }
   async DeletePaciente(id: string): Promise<string> {

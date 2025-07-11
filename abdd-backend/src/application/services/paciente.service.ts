@@ -1,22 +1,17 @@
 import { CreatePacienteUseCase } from 'src/domain/use-cases/create-paciente.usecase';
-import { IPacienteRepository } from 'src/domain/repositories/paciente.repository';
+import { CreatePacienteDto } from 'src/paciente/dto/create-paciente.dto';
+import { Injectable } from '@nestjs/common';
+import { PacienteRepositoryRegistry } from 'src/paciente/paciente-repo.registry';
 
+
+@Injectable()
 export class PacienteService {
-  private createPaciente: CreatePacienteUseCase;
+  constructor(private readonly registry: PacienteRepositoryRegistry) {}
 
-  constructor(private readonly repo: IPacienteRepository) {
-    this.createPaciente = new CreatePacienteUseCase(repo);
-  }
+  async CreatePaciente(dto: CreatePacienteDto, dbKey:string) {
+    const repo = this.registry.get(dbKey);
+    const createPaciente = new CreatePacienteUseCase(repo);
 
-  async CreatePaciente(input: {
-    id: string;
-    nombre: string;
-    tutor: string;
-    raza: string;
-    especie: string;
-    edad: Number;
-    genero: string;
-  }) {
-    await this.createPaciente.execute(input);
+    await createPaciente.execute(dto);
   }
 }

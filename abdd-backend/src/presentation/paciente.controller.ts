@@ -1,5 +1,6 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Headers } from '@nestjs/common';
 import { PacienteService } from 'src/application/services/paciente.service';
+import { CreatePacienteDto } from 'src/paciente/dto/create-paciente.dto';
 
 @Controller('pacientes')
 export class PacienteController
@@ -7,8 +8,8 @@ export class PacienteController
     constructor(private readonly service:PacienteService) {}
 
     @Post()
-    create(@Body() dto: {id: string, nombre: string, tutor: string, raza: string, especie: string, edad: Number, genero: string})
+    create(@Body() createPacienteDto : CreatePacienteDto, @Headers('db') dbKey:string)
     {
-        return this.service.CreatePaciente(dto);
+        return this.service.CreatePaciente(createPacienteDto, dbKey);
     }
 }
