@@ -23,8 +23,8 @@ export class MongoPacienteRepository implements IPacienteRepository {
   return doc
       ? new Paciente(
           doc.id,
-          doc.nombre,
           doc.tutor,
+          doc.nombre,
           doc.raza,
           doc.edad,
           doc.especie,
@@ -33,6 +33,7 @@ export class MongoPacienteRepository implements IPacienteRepository {
       : null;
   }
   async UpdatePaciente(paciente: Paciente): Promise<void> {
+
     await this.pacienteModel.findByIdAndUpdate(paciente.getId(), {
       nombre: paciente.getNombre(),
       tutor: paciente.getTutor(),
@@ -47,5 +48,39 @@ export class MongoPacienteRepository implements IPacienteRepository {
 
     if (query.deletedCount == 1) return 'Patient removed';
     else return "Couldn't find patient to remove";
+  }
+
+  async DeleteAll(): Promise<string> {
+      const query = await this.pacienteModel.deleteMany();
+      if(query.deletedCount > 0) return `Removed ${query.deletedCount} patients`;
+      else return `No patients found on the databse`;
+  }
+
+  async FindAll() : Promise<Paciente[] | undefined>
+  {
+    const query = await this.pacienteModel.find();
+    if(query.length === 0) return undefined;
+
+    else
+    {
+      const pacientes:Paciente[] = [];
+
+      for(let i = 0; i < query.length; i++)
+      {
+        const doc = query[i];
+        if(!doc) continue;
+        pacientes.push(new Paciente(
+          doc.id,
+          doc.tutor,
+          doc.nombre,
+          doc.raza,
+          doc.edad,
+          doc.especie,
+          doc.genero,
+        ))
+      }
+
+      return pacientes;
+    }
   }
 }

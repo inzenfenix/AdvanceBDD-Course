@@ -1,0 +1,5 @@
+class-validator
+@nestjs/mongoose mongoose
+@nestjs/config
+cassandra-driver
+aws-sdk

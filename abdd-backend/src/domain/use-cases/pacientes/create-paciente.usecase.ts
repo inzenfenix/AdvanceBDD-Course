@@ -1,6 +1,6 @@
-import { IPacienteRepository } from '../repositories/paciente.repository';
-import { Paciente } from '../entities/paciente.entity';
-import { CreatePacienteDto } from 'src/paciente/dto/create-paciente.dto';
+import { IPacienteRepository } from '../../repositories/paciente.repository';
+import { Paciente } from '../../entities/paciente.entity';
+import { CreatePacienteDto } from 'src/presentation/paciente/dto/create-paciente.dto';
 import { v4 as uuidv4 } from 'uuid';
 
 export class CreatePacienteUseCase {
@@ -11,8 +11,8 @@ export class CreatePacienteUseCase {
 
     const paciente = new Paciente(
       id,
-      dto.nombre,
       dto.tutor,
+      dto.nombre,
       dto.raza,
       dto.edad,
       dto.especie,

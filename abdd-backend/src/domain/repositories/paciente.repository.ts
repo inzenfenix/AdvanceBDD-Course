@@ -10,4 +10,7 @@ export interface IPacienteRepository
     UpdatePaciente(paciente:Paciente): Promise<void>;
     //Delete
     DeletePaciente(id:string): Promise<string>;
+
+    DeleteAll():Promise<string>;
+    FindAll():Promise<Paciente[] | undefined>;
 }

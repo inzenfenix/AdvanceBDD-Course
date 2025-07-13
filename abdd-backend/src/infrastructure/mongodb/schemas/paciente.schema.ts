@@ -2,10 +2,10 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
 
-export type PacienteDocument = HydratedDocument<PacienteMongo>
+export type PacienteDocument = HydratedDocument<PacienteMongo>;
 
-@Schema({collection:'Paciente'})
-export class PacienteMongo{
+@Schema({ collection: 'Paciente' })
+export class PacienteMongo {
   @Prop({ type: String, default: uuidv4 })
   _id: String;
 
