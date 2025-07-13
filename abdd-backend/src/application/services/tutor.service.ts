@@ -7,6 +7,8 @@ import { ReadTutorUseCase } from 'src/domain/use-cases/tutor/read-tutor.usecase'
 import { ReadAllTutoresUseCase } from 'src/domain/use-cases/tutor/read-all-tutores.usecase';
 import { UpdateTutorDto } from 'src/presentation/tutor/dto/update-tutor.dto';
 import { UpdateTutorUseCase } from 'src/domain/use-cases/tutor/update-tutor.usecase';
+import { DeleteTutorDto } from 'src/presentation/tutor/dto/delete-tutor.dto';
+import { DeleteTutorUseCase } from 'src/domain/use-cases/tutor/delete-tutor.usercase';
 
 @Injectable()
 export class TutorService {
@@ -26,6 +28,14 @@ export class TutorService {
     await deleteTutor.execute();
   }
 
+  async DeleteTutor(dbKey: string, dto: DeleteTutorDto) {
+    const repo = this.registry.get(dbKey);
+
+    const deleteTutor = new DeleteTutorUseCase(repo);
+
+    await deleteTutor.execute(dto);
+  }
+
   async FindTutor(dbKey: string, id: string) {
     const repo = this.registry.get(dbKey);
 
@@ -42,8 +52,7 @@ export class TutorService {
     return await findAllTutores.execute();
   }
 
-  async UpdateTutor(dbKey: string, dto: UpdateTutorDto) 
-  {
+  async UpdateTutor(dbKey: string, dto: UpdateTutorDto) {
     const repo = this.registry.get(dbKey);
 
     const updateTutor = new UpdateTutorUseCase(repo);

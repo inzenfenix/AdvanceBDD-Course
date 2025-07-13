@@ -2,6 +2,7 @@ import { Controller, Post, Body, Headers, Get, Param, Put } from '@nestjs/common
 import { PacienteService } from 'src/application/services/paciente.service';
 import { CreatePacienteDto } from 'src/presentation/paciente/dto/create-paciente.dto';
 import { UpdatePacienteDto } from 'src/presentation/paciente/dto/update-paciente.dto';
+import { DeletePacienteDto } from './paciente/dto/delete-paciente.dto';
 
 @Controller('pacientes')
 export class PacienteController
@@ -36,5 +37,11 @@ export class PacienteController
     async UpdatePaciente(@Body() updatePacienteDto : UpdatePacienteDto, @Headers('db') dbKey:string)
     {
         return this.service.UpdatePaciente(dbKey, updatePacienteDto);
+    }
+
+    @Post('delete')
+    deletePaciente(@Body() deletePacienteDto : DeletePacienteDto, @Headers('db') dbKey:string)
+    {
+        return this.service.DeletePaciente(dbKey, deletePacienteDto);
     }
 }

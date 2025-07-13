@@ -2,6 +2,7 @@ import { Controller, Post, Body, Headers, Get, Param, Put } from '@nestjs/common
 import { TutorService } from 'src/application/services/tutor.service';
 import { CreateTutorDto } from './tutor/dto/create-tutor.dto';
 import { UpdateTutorDto } from './tutor/dto/update-tutor.dto';
+import { DeleteTutorDto } from './tutor/dto/delete-tutor.dto';
 
 @Controller('tutores')
 export class TutorController
@@ -12,6 +13,12 @@ export class TutorController
     create(@Body() createPacienteDto : CreateTutorDto, @Headers('db') dbKey:string)
     {
         return this.service.CreateTutor(createPacienteDto, dbKey);
+    }
+
+    @Post('delete')
+    deleteTutor(@Body() deleteTutorDto : DeleteTutorDto, @Headers('db') dbKey:string)
+    {
+        return this.service.DeleteTutor(dbKey, deleteTutorDto);
     }
     
     @Post('delete-all')

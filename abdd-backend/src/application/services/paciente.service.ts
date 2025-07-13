@@ -7,6 +7,8 @@ import { ReadAllPacientesUseCase } from 'src/domain/use-cases/pacientes/read-all
 import { ReadPacienteUseCase } from 'src/domain/use-cases/pacientes/read-paciente.usecase';
 import { UpdatePacienteUseCase } from 'src/domain/use-cases/pacientes/update-paciente.usecase';
 import { UpdatePacienteDto } from 'src/presentation/paciente/dto/update-paciente.dto';
+import { DeletePacienteDto } from 'src/presentation/paciente/dto/delete-paciente.dto';
+import { DeletePacienteUseCase } from 'src/domain/use-cases/pacientes/delete-paciente.usecase';
 
 
 @Injectable()
@@ -27,6 +29,15 @@ export class PacienteService {
     const deleteAllPacientes = new DeleteAllPacientesUseCase(repo);
 
     await deleteAllPacientes.execute();
+  }
+
+  async DeletePaciente(dbKey:string, dto: DeletePacienteDto)
+  {
+    const repo = this.registry.get(dbKey);
+
+    const deletePaciente = new DeletePacienteUseCase(repo);
+
+    await deletePaciente.execute(dto);
   }
 
   async FindAllPacientes(dbKey:string):Promise<string>
