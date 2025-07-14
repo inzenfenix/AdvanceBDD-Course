@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
-import { createDynamoClient, CreateMongoConnection } from './db.config';
+import { createCassandraCliente, createDynamoClient, CreateMongoConnection } from './db.config';
 import { MongooseModule } from "@nestjs/mongoose";
 
 @Module(
@@ -21,11 +21,17 @@ import { MongooseModule } from "@nestjs/mongoose";
                 useFactory:createDynamoClient,
                 inject: [ConfigService]
             },
+            {
+                provide:'CASSANDRA_CLIENT',
+                useFactory:createCassandraCliente,
+                inject: [ConfigService]
+            },
         ],
         exports: [
             MongooseModule,
             ConfigModule,
-            'DYNAMO_CLIENT'
+            'DYNAMO_CLIENT',
+            'CASSANDRA_CLIENT'
         ]
     }
 )

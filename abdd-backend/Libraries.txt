@@ -7,3 +7,4 @@ aws-sdk
 @aws-sdk/lib-dynamodb
 @aws-sdk/credential-providers
 class-transformer
+@types/cassandra-driver

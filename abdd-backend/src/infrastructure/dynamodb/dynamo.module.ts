@@ -4,6 +4,7 @@ import { DynamoPacienteRepository } from './paciente.repository.dynamo';
 import { DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb';
 import { DynamoMedicoRepository } from './medico.repository.dynamo';
 import { DynamoTutorRepository } from './tutor.repository.dynamo';
+import { DynamoFichaMedicaRepository } from './ficha-medica.repository.dynamo';
 
 @Module({
   imports: [DBConfigModule],
@@ -26,11 +27,18 @@ import { DynamoTutorRepository } from './tutor.repository.dynamo';
         new DynamoTutorRepository(client),
       inject: ['DYNAMO_CLIENT'],
     },
+    {
+      provide: DynamoFichaMedicaRepository,
+      useFactory: (client: DynamoDBDocumentClient) =>
+        new DynamoFichaMedicaRepository(client),
+      inject: ['DYNAMO_CLIENT'],
+    },
   ],
   exports: [
     DynamoPacienteRepository,
     DynamoMedicoRepository,
     DynamoTutorRepository,
+    DynamoFichaMedicaRepository
   ],
 })
 export class DynamoDBModule {}

@@ -2,7 +2,6 @@ import { Procedimiento } from "./procedimiento";
 
 export class RevisionMedica
 {
-    public id:string;
     public peso:Number;
     public presion:Number;
     public temperatura:Number;

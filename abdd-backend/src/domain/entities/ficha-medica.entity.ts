@@ -1,6 +1,4 @@
 import { CarnetVacuna } from './serializable-objects/carnet-vacuna';
-import { Medicamento } from './serializable-objects/medicamento';
-import { Procedimiento } from './serializable-objects/procedimiento';
 import { RevisionMedica } from './serializable-objects/revision-medica';
 
 export class FichaMedica {
