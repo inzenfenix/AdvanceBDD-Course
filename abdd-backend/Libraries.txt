@@ -3,3 +3,7 @@ class-validator
 @nestjs/config
 cassandra-driver
 aws-sdk
+@aws-sdk/client-dynamodb
+@aws-sdk/lib-dynamodb
+@aws-sdk/credential-providers
+class-transformer

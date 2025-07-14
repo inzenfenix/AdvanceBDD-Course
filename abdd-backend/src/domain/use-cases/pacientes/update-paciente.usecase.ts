@@ -1,5 +1,4 @@
 import { IPacienteRepository } from '../../repositories/paciente.repository';
-import { Paciente } from '../../entities/paciente.entity';
 import { UpdatePacienteDto } from 'src/presentation/paciente/dto/update-paciente.dto';
 
 export class UpdatePacienteUseCase {

@@ -10,9 +10,9 @@ export class TutorController
     constructor(private readonly service:TutorService) {}
 
     @Post('create')
-    create(@Body() createPacienteDto : CreateTutorDto, @Headers('db') dbKey:string)
+    create(@Body() createTutorDto : CreateTutorDto, @Headers('db') dbKey:string)
     {
-        return this.service.CreateTutor(createPacienteDto, dbKey);
+        return this.service.CreateTutor(createTutorDto, dbKey);
     }
 
     @Post('delete')

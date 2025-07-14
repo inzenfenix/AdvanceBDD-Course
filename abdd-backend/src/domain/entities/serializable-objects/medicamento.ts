@@ -1,5 +1,5 @@
 export class Medicamento
 {
-    nombre:string;
-    cantidad:string;
+    public nombre:string;
+    public cantidad:Number;
 }

@@ -81,12 +81,10 @@ export class Paciente {
 
       if (!dataToUpdate) continue;
 
-
       this.HasSpecialCharacters(dataToUpdate.toString())
         ? console.log('Special Characters found on update')
         : curSetFunction(dataToUpdate);
     }
-
   }
 
   private HasSpecialCharacters(str: string): boolean {

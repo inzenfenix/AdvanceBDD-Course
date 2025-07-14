@@ -46,14 +46,14 @@ export class MongoPacienteRepository implements IPacienteRepository {
   async DeletePaciente(id: string): Promise<string> {
     const query = await this.pacienteModel.deleteOne({ _id: id });
 
-    if (query.deletedCount == 1) return 'Patient removed';
+    if (query.deletedCount == 1) return "Patient removed";
     else return "Couldn't find patient to remove";
   }
 
   async DeleteAll(): Promise<string> {
       const query = await this.pacienteModel.deleteMany();
       if(query.deletedCount > 0) return `Removed ${query.deletedCount} patients`;
-      else return `No patients found on the databse`;
+      else return `No patients found on the database`;
   }
 
   async FindAll() : Promise<Paciente[] | undefined>
