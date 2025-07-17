@@ -11,22 +11,55 @@ export class CassandraTutorRepository implements ITutorRepository {
     const params = [tutor.getId(), tutor.getNombre(), tutor.getMascotas()];
     await this.client.execute(query, params, {prepare:true});
   }
+
   async FindById(id: string): Promise<Tutor | null> {
-    throw new Error('Method not implemented.');
+    const query = 'SELECT * FROM tutor WHERE id = ?';
+    const params = [id];
+
+    const res = await this.client.execute(query, params, { prepare:true });
+
+    const tutor = res ? new Tutor(res.rows[0].id, res.rows[0].nombre, res.rows[0].idmascotas) : null;
+
+    return tutor;
   }
+
   async UpdateTutor(tutor: Tutor): Promise<void> {
-    throw new Error('Method not implemented.');
+    const query = 'UPDATE tutor SET nombre = ?, idmascotas = ? WHERE id = ?';
+    const params = [tutor.getNombre(), tutor.getMascotas(), tutor.getId()];
+
+    await this.client.execute(query, params, { prepare:true });
   }
+
   async DeleteTutor(id: string): Promise<string> {
-    throw new Error('Method not implemented.');
+    const query = 'DELETE FROM tutor WHERE id = ?'
+    const params = [id];
+    const res = await this.client.execute(query, params, { prepare:true });
+
+    const msg = res.wasApplied() ? "Tutor deleted" : "No tutor fount to delete";
+    return msg;
   }
+
   async DeleteAll(): Promise<string> {
-    throw new Error('Method not implemented.');
+    const query = 'TRUNCATE tutor';
+    const res = await this.client.execute(query);
+
+    const msg = res.wasApplied() ? "All Tutores deleted" : "No tutores deleted";
+    return msg;
   }
+
   async FindAll(): Promise<Tutor[] | undefined> {
     const query = 'SELECT * FROM tutor';
-    const result = await this.client.execute(query);
+    const res = await this.client.execute(query);
 
-    return result.rows.map((row) => new Tutor(row.id, row.nombre, row.idmascotas));
+    return res.rows.map((row) => new Tutor(row.id, row.nombre, row.idmascotas));
+  }
+
+  async MascotasTotales(): Promise<Number[] | null> {
+    const query = 'SELECT idmascotas FROM Tutor';
+
+    const res = await this.client.execute(query);
+    const mascotas = res.rows.map((row) => row.idmascotas.length)
+
+    return mascotas;
   }
 }

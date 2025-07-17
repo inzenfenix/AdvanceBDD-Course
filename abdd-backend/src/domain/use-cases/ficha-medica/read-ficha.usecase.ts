@@ -11,8 +11,6 @@ export class ReadFichaMediaUseCase
 
         if(ficha === null) return "";
 
-        
-
-        return ficha.getJSONReadFichaMedica();
+        return ficha.getJSONFichaMedica();
     }
 }

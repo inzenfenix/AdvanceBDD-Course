@@ -57,6 +57,27 @@ export class FichaMedica {
     return serialized;
   }
 
+  public getSerializableFichaMedica()
+  {
+    const serialized = new SerializableFichaMedica(
+      this.getId(),
+      this.getIdMascota(),
+      this.getRevisionesMedicas(),
+      this.getVacunas(),
+    );
+
+    return serialized;
+  }
+
+  public toRawObject() {
+    return {
+      id: this.id,
+      idMascota: this.idMascota,
+      revisionesMedicas: this.revisionesMedicas.map(revisiones => revisiones.toRawObject()),
+      carnetVacuna: this.carnetVacuna.map(carnet => carnet.toRawObject())
+    };
+  }
+
   public UpdateData(
     idMascota?: string,
     revisionesMedicas?: RevisionMedica[],

@@ -6,7 +6,6 @@ import { TutorMongo } from './schemas/tutor.schema';
 
 export class TutorMongoRepository implements ITutorRepository {
   constructor(@InjectModel('Tutor') private tutorModel: Model<TutorMongo>) {}
-
   async CreateTutor(tutor: Tutor): Promise<void> {
     await new this.tutorModel({
       _id: tutor.getId(),
@@ -66,5 +65,14 @@ export class TutorMongoRepository implements ITutorRepository {
 
       return pacientes;
     }
+  }
+
+  async MascotasTotales(): Promise<Number[] | null> {
+    const query = await this.tutorModel.find();
+    if(query.length === 0) return null;
+
+    const mascotas = query.map((item) => item.idMascotas.length);
+
+    return mascotas;
   }
 }

@@ -18,7 +18,9 @@ export class ReadAllTutoresUseCase {
 
       dtoTutores.push(
         new ReadTutorDto(
+          curTutor.getId(),
           curTutor.getNombre(),
+          curTutor.getMascotas()
         )
       )
     }

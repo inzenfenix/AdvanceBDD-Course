@@ -13,4 +13,6 @@ export interface ITutorRepository
 
     DeleteAll():Promise<string>;
     FindAll():Promise<Tutor[] | undefined>;
+
+    MascotasTotales():Promise<Number[] | null>;
 }

@@ -20,6 +20,7 @@ export class ReadAllMedicosUseCase
 
             dtoMedicos.push(
                 new ReadMedicoDto(
+                    curMedico.getId(),
                     curMedico.getNombre(),
                     curMedico.getEstado(),
                     curMedico.getEspecialidad()

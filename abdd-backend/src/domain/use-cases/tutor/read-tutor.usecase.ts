@@ -13,7 +13,9 @@ export class ReadTutorUseCase
         if(tutor === undefined) return "";
 
         return JSON.stringify(new ReadTutorDto(
-            tutor?.getNombre()
+            tutor?.getId(),
+            tutor?.getNombre(),
+            tutor?.getMascotas()
         ))
     }
 }

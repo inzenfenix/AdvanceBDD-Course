@@ -4,6 +4,8 @@ import { DBConfigModule } from './db-config.module';
 import { TutorModule } from './presentation/tutor/tutor.module';
 import { MedicoModule } from './presentation/medico/medico.module';
 import { FichaMedicaModule } from './presentation/ficha-medica/ficha-medica.module';
+import { PobladorModule } from './presentation/poblador/poblador.module';
+import { QueriesModule } from './presentation/queries/queries.module';
 
 @Module({
   imports: [
@@ -11,7 +13,9 @@ import { FichaMedicaModule } from './presentation/ficha-medica/ficha-medica.modu
     PacienteModule,
     TutorModule,
     MedicoModule,
-    FichaMedicaModule
+    FichaMedicaModule,
+    PobladorModule,
+    QueriesModule
   ],
 })
 export class AppModule {}

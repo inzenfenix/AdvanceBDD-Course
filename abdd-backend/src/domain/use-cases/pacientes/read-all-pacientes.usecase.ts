@@ -18,6 +18,7 @@ export class ReadAllPacientesUseCase {
 
       dtoPacientes.push(
         new ReadPacienteDto(
+          curPaciente.getId(),
           curPaciente.getNombre(),
           curPaciente.getTutor(),
           curPaciente.getRaza(),

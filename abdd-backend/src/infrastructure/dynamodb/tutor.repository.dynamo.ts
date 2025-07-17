@@ -119,4 +119,17 @@ export class DynamoTutorRepository implements ITutorRepository {
         ),
     );
   }
+
+  async MascotasTotales(): Promise<Number[] | null> {
+    const result = await this.client.send(
+      new ScanCommand({
+        TableName: this.tableName,
+      }),
+    );
+
+    return (result.Items || []).map(
+      (item) =>
+        item.mascotas.length,
+    );
+  }
 }

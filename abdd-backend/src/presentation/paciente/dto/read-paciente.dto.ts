@@ -3,6 +3,9 @@ import { IsString, IsNumber } from 'class-validator';
 export class ReadPacienteDto
 {
     @IsString()
+    readonly id:string;
+    
+    @IsString()
     readonly nombre:string;
 
     @IsString()
@@ -20,8 +23,9 @@ export class ReadPacienteDto
     @IsString()
     readonly genero:string;
 
-    constructor(nombre, tutor, raza, edad, especie, genero)
+    constructor(id, nombre, tutor, raza, edad, especie, genero)
     {
+        this.id = id;
         this.nombre = nombre;
         this.tutor = tutor;
         this.raza = raza;

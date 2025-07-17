@@ -10,7 +10,9 @@ export class ReadPacienteUseCase {
 
     if(paciente === undefined) return "";
 
-    return JSON.stringify(new ReadPacienteDto(
+    return JSON.stringify(new ReadPacienteDto
+        (
+          paciente?.getId(),
           paciente?.getNombre(),
           paciente?.getTutor(),
           paciente?.getRaza(),

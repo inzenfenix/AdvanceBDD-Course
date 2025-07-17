@@ -14,4 +14,14 @@ export interface IFichaMedicaRepository {
   FindAll(): Promise<FichaMedica[] | undefined>;
 
   FindByPetId(idMascota:string): Promise<FichaMedica | null>;
+
+  FindAllProceduresMoney(): Promise<{procedimiento:string, costo:Number}[] | null>;
+
+  FindAllVaccines(): Promise<string[] | null>;
+
+  FindMedsWithQuantity(): Promise<{medicamento:string, cantidad:Number}[] | null>;
+
+  GetMedicosIDs(): Promise<string[] | null> 
+
+  GetRevisionesPagos(): Promise<boolean[] | null>
 }

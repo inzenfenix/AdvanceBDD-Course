@@ -3,16 +3,20 @@ import { IsString } from "class-validator";
 export class ReadMedicoDto
 {
     @IsString()
-    public readonly nombre:string;
+    readonly id:string;
 
     @IsString()
-    public readonly estado:string;
+    readonly nombre:string;
 
     @IsString()
-    public readonly especialidad:string;
+    readonly estado:string;
 
-    constructor(nombre, estado, especialidad)
+    @IsString()
+    readonly especialidad:string;
+
+    constructor(id, nombre, estado, especialidad)
     {
+        this.id = id;
         this.nombre = nombre;
         this.estado = estado;
         this.especialidad = especialidad;

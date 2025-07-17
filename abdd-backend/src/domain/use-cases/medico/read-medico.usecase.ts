@@ -14,6 +14,7 @@ export class ReadMedicoUseCase
 
         return JSON.stringify(
             new ReadMedicoDto(
+                medico?.getId(),
                 medico?.getNombre(),
                 medico?.getEstado(),
                 medico?.getEspecialidad()

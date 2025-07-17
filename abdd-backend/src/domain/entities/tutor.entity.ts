@@ -41,6 +41,11 @@ export class Tutor {
     }
   }
 
+  public pushMascota(idMascota:string)
+  {
+    this.idMascotas.push(idMascota);
+  }
+
   public UpdateData(nombre?: string, mascotas?:string[]) {
     const newData = [nombre, mascotas];
     const setFunctions: ((newValue: string | string[]) => void)[] = [

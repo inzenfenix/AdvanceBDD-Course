@@ -14,7 +14,7 @@ export class ReadAllFichaMedicaUseCase {
     for (let i = 0; i < fichas.length; i++) {
       const curFicha = fichas[i];
 
-      dtoFichas.push(curFicha.getSerializableReadFichaMedica());
+      dtoFichas.push(curFicha.getSerializableFichaMedica());
     }
     return JSON.stringify(dtoFichas);
   }

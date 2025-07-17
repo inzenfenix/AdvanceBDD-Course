@@ -1,5 +1,11 @@
-export class VacunaAdministrada
-{
-    public nombreVacuna:string;
-    public fecha: Date;
+export class VacunaAdministrada {
+  public nombrevacuna: string;
+  public fecha: Date;
+
+  public toRawObject() {
+    return {
+      nombrevacuna: this.nombrevacuna,
+      fecha: this.fecha.toISOString(),
+    };
+  }
 }
