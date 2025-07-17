@@ -254,7 +254,7 @@ export const createCassandraCliente = async (
     peso float,
     presion float,
     temperatura float,
-    PRIMARY KEY(idrevision, idficha, idmedica)
+    PRIMARY KEY(idrevision, idficha, idmedico)
     );
   `;
 
