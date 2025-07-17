@@ -10,6 +10,7 @@ import { AveragePetsUseCase } from 'src/domain/use-cases/queries/promedio-mascot
 import { AllMedsDBsUseCase } from 'src/domain/use-cases/queries/all-meds.usecase';
 import { GetMedicsWithNameUseCase } from 'src/domain/use-cases/queries/get-medics.usecase';
 import { PaidVisitsUseCase } from 'src/domain/use-cases/queries/paid-visit.usecase';
+import { promises as fs } from 'fs';
 
 //This backend was made on a week, using a combination of blood, sweat and tears, mostly tears, mostly blood, hope you like it :) -TS with love <3
 @Injectable()
@@ -45,7 +46,11 @@ export class QueriesService {
 
       const useCase = new GetProceduresAndMoneyFichaMedicaUseCase(fichaRepo);
 
-      const curProcedures = await useCase.execute();
+      let curProcedures;
+
+      await this.logDuration(`RankByAveragePrice-${curDB}`, async () => {
+          curProcedures = await useCase.execute();
+      })
 
       if (curProcedures !== null && curProcedures !== undefined) {
         procedures = procedures.concat(curProcedures);
@@ -70,7 +75,13 @@ export class QueriesService {
 
       const useCase = new MostUsedVaccinesUseCase(fichaRepo);
 
-      const curVacunas = await useCase.execute();
+      //const curVacunas = await useCase.execute();
+
+      let curVacunas;
+
+      await this.logDuration(`GetVacunasMasFrecuentes-${curDB}`, async () => {
+          curVacunas = await useCase.execute();
+      })
 
       if (curVacunas !== null && curVacunas !== undefined) {
         vacunas = vacunas.concat(curVacunas);
@@ -89,7 +100,13 @@ export class QueriesService {
 
       const useCase = new AveragePetsUseCase(tutorRepo);
 
-      const curMascotas = await useCase.execute();
+      let curMascotas:Number[] | null = [];
+
+      await this.logDuration(`GetPromedioMascotasPorTutor-${curDB}`, async () => {
+          curMascotas = await useCase.execute();
+      })
+      
+      //const curMascotas = await useCase.execute();
 
       if (curMascotas !== null && curMascotas !== undefined) {
         mascotas = mascotas.concat(curMascotas);
@@ -110,7 +127,13 @@ export class QueriesService {
 
       const useCase = new AllMedsDBsUseCase(fichaRepo);
 
-      const curMeds = await useCase.execute();
+      //const curMeds = await useCase.execute();
+
+      let curMeds;
+
+      await this.logDuration(`GetAverageAmountOfMeds-${curDB}`, async () => {
+          curMeds = await useCase.execute();
+      })
 
       if (curMeds !== null && curMeds !== undefined) {
         meds = meds.concat(curMeds);
@@ -132,7 +155,13 @@ export class QueriesService {
       const medicoRepo = this.medicoRegistry.get(curDB);
 
       const useCase = new GetMedicsWithNameUseCase(fichaRepo, medicoRepo);
-      const curMedicos = await useCase.execute();
+      //const curMedicos = await useCase.execute();
+
+      let curMedicos;
+
+      await this.logDuration(`GetMedicsSortedByWork-${curDB}`, async () => {
+          curMedicos = await useCase.execute();
+      })
 
       if (curMedicos !== null && curMedicos !== undefined) {
         medicos = medicos.concat(curMedicos);
@@ -151,7 +180,13 @@ export class QueriesService {
       const fichaRepo = this.fichaRegistry.get(curDB);
 
       const useCase = new PaidVisitsUseCase(fichaRepo);
-      const curPagado = await useCase.execute();
+      //const curPagado = await useCase.execute();
+
+      let curPagado;
+
+      await this.logDuration(`GetVisitsPaid-${curDB}`, async () => {
+          curPagado = await useCase.execute();
+      })
 
       if (curPagado !== null && curPagado !== undefined) {
         pagados = pagados.concat(curPagado);
@@ -225,7 +260,7 @@ export class QueriesService {
     const grouped: Record<string, { count: number }> = {};
 
     for (const pagado of pagados) {
-      const pagadoStr = pagado ? "Pagado" : "No Pagado";
+      const pagadoStr = pagado ? 'Pagado' : 'No Pagado';
       if (!grouped[pagadoStr]) {
         grouped[pagadoStr] = { count: 0 };
       }
@@ -286,5 +321,16 @@ export class QueriesService {
     return [...vacunas].sort(
       (a, b) => b.frecuencia.valueOf() - a.frecuencia.valueOf(),
     );
+  }
+
+  //Function from the internet to get logs on js
+  async logDuration(label: string, fn: () => Promise<any>) {
+    const start = Date.now();
+    const result = await fn();
+    const duration = Date.now() - start;
+    const logEntry = `[${new Date().toISOString()}] ${label}: ${duration} ms\n`;
+
+    await fs.appendFile('logs.txt', logEntry);
+    return result;
   }
 }

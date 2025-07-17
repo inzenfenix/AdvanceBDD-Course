@@ -35,6 +35,13 @@ export class QueriesController {
     return this.queriesService.GetPromedioMascotasPorTutor(repos);
   }
 
+  @Get('medicinas-cantidad-promedio')
+  AverageMeds() 
+  {
+    const repos = ["mongo", "dynamo", "cassandra"];
+    return this.queriesService.GetAverageAmountOfMeds(repos);
+  }
+
   @Get('medicos-trabajo-cantidad')
   AmountMedicWork()
   {
