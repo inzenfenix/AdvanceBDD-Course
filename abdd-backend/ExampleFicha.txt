@@ -4,12 +4,12 @@
         "peso":15, 
         "presion":90, 
         "temperatura":32, 
-        "fechaHora":"2025-01-01T00:00:00",
-        "idMedico":"a1d310c6-6eb7-417f-9e2e-a12b4662a9cc",
+        "fechahora":"2025-01-01T00:00:00",
+        "idmedico":"a1d310c6-6eb7-417f-9e2e-a12b4662a9cc",
         "costo":93200,
         "pagado":true,
         "procedimientos":[{
-            "idMedicos":["ef03a6b0-7ed6-4295-b2cf-4c5adb55e209", "b28a290c-0cb8-494c-b1e3-c0e77518fba6"],
+            "idmedicos":["ef03a6b0-7ed6-4295-b2cf-4c5adb55e209", "b28a290c-0cb8-494c-b1e3-c0e77518fba6"],
             "procedimiento":"Tumor benigno removido",
             "medicamentos":[{
                 "nombre":"Paracetamol",
@@ -19,7 +19,7 @@
         "carnetVacuna":[{
             "enfermedad":"Libelula Loca",
             "vacunas": [{
-                "nombreVacuna":"Pfizer2",
+                "nombrevacuna":"Pfizer2",
                 "fecha":"2025-01-01T00:00:00"}]}]
 
 }
